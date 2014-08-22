@@ -33,7 +33,7 @@ func main() {
 	fmt.Println("Directory to upload files: ", up)
 
 	http.HandleFunc("/upload", uploadHandler)
-	http.HandleFunc("/", downloadHandler)
+	http.Handle("/", http.FileServer(http.Dir(down)))
 
 	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
