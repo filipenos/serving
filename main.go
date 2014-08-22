@@ -36,12 +36,8 @@ func main() {
 
 	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
-		fmt.Printf("Failed to start server, %v", err)
+		fmt.Printf("Failed to start server, %v\n", err)
 	}
-}
-
-func downloadHandler(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Download"))
 }
 
 func uploadHandler(w http.ResponseWriter, r *http.Request) {
@@ -65,7 +61,6 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 			if _, err := io.Copy(dst, file); err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 			}
-			//http.Redirect(w, r, "/upload", 200)
 			display(w, nil)
 		}
 
@@ -78,7 +73,9 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func display(w http.ResponseWriter, data interface{}) {
-	t := template.New("upload")
-	t, _ = t.Parse(upload)
-	t.ExecuteTemplate(w, "upload", data)
+	t, err := template.New("upload").Parse(upload)
+	if err != nil {
+		panic(fmt.Sprintf("An error ocurred when parsing template, %v\n", err))
+	}
+	t.ExecuteTemplate(w, "upload", nil)
 }
