@@ -3,6 +3,8 @@ Easy Server
 
 Easy Server is the easiest way to serve files
 
+[![Build Status](https://drone.io/github.com/filipenos/easy-server/status.png)](https://drone.io/github.com/filipenos/easy-server/latest)
+
 How to install
 --------------
 ```sh
