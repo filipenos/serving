@@ -12,7 +12,6 @@ import (
 
 var (
 	port, down, up string
-	templates      = template.Must(template.ParseFiles("upload.html"))
 )
 
 func init() {
@@ -66,17 +65,20 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 			if _, err := io.Copy(dst, file); err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
 			}
-			display(w, "upload", "Upload successfull")
+			//http.Redirect(w, r, "/upload", 200)
+			display(w, nil)
 		}
 
 	case "GET":
-		display(w, "upload", nil)
+		display(w, nil)
 
 	default:
 		w.WriteHeader(http.StatusMethodNotAllowed)
 	}
 }
 
-func display(w http.ResponseWriter, tmpl, data interface{}) {
-	templates.ExecuteTemplate(w, "upload.html", data)
+func display(w http.ResponseWriter, data interface{}) {
+	t := template.New("upload")
+	t, _ = t.Parse(upload)
+	t.ExecuteTemplate(w, "upload", data)
 }
