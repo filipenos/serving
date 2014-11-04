@@ -73,7 +73,7 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func display(w http.ResponseWriter, data interface{}) {
-	t, err := template.ParseFiles("upload.gtpl")
+	t, err := template.ParseFiles("upload.html")
 	if err != nil {
 		panic(fmt.Sprintf("An error ocurred when parsing template, %v\n", err))
 	}
