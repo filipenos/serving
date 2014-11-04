@@ -44,7 +44,7 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 	switch r.Method {
 
 	case "POST":
-		err := r.ParseMultipartForm(100000)
+		err := r.ParseMultipartForm(32 << 20) // 32MB is the default size used by FormFile
 		if err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
@@ -73,9 +73,9 @@ func uploadHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func display(w http.ResponseWriter, data interface{}) {
-	t, err := template.New("upload").Parse(upload)
+	t, err := template.ParseFiles("upload.html")
 	if err != nil {
 		panic(fmt.Sprintf("An error ocurred when parsing template, %v\n", err))
 	}
-	t.ExecuteTemplate(w, "upload", nil)
+	t.Execute(w, nil)
 }
