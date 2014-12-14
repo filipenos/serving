@@ -1,10 +1,9 @@
-Easy Server
+Serving
 ==========
 
-Easy Server is the easiest way to serve files
+Serving is the easiest way to serve files on web.
 
-[![Build Status](https://drone.io/github.com/filipenos/easy-server/status.png)](https://drone.io/github.com/filipenos/easy-server/latest)
-[ ![Codeship Status for filipenos/easy-server](https://www.codeship.io/projects/88c292f0-1019-0132-a632-56f247b2da86/status)](https://www.codeship.io/projects/32780)
+[ ![Codeship Status for filipenos/serving](https://codeship.com/projects/88c292f0-1019-0132-a632-56f247b2da86/status?branch=master)](https://codeship.com/projects/32780)
 
 How to install
 --------------
@@ -16,10 +15,10 @@ go get github.com/filipenos/serving
 How to use
 ----------
 ```sh
-serving -port=<port> -download-dir=<path to download> -upload-dir=<path to save files>
+serving -port=<port> -dir=<path to download> -upload=<path to save files>
 ```
 > where
  * port = Number of port to usage
- * download-dir = Path to serve a files
- * upload-dir = Path to save files uploaded
+ * dir = Path to serve a files
+ * upload = Path to save files uploaded
  
