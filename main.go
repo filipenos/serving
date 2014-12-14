@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	port, down, up string
+	port, dir, up string
 )
 
 func init() {
@@ -21,18 +21,17 @@ func init() {
 	}
 
 	flag.StringVar(&port, "port", "8080", "Serve port number")
-	flag.StringVar(&down, "download-dir", pwd, "Directory to be served")
-	flag.StringVar(&up, "upload-dir", pwd, "Directory to upload files")
+	flag.StringVar(&dir, "dir", pwd, "Directory to be served")
+	flag.StringVar(&up, "upload", pwd, "Directory to upload files")
 }
 
 func main() {
 	flag.Parse()
-	fmt.Println("Server start on: ", port)
-	fmt.Println("Directory to serve: ", down)
-	fmt.Println("Directory to upload files: ", up)
+	fmt.Printf("Serving %v on port :%v\n", dir, port)
+	fmt.Printf("Uploading files to %v\n", up)
 
 	http.HandleFunc("/upload", uploadHandler)
-	http.Handle("/", http.FileServer(http.Dir(down)))
+	http.Handle("/", http.FileServer(http.Dir(dir)))
 
 	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
